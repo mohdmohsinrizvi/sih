@@ -1,0 +1,65 @@
+# Environment
+.env
+.env.local
+.env.production
+config/redpanda.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.sqlite3
+
+# Generated data (large files - generate locally)
+data/replay/*.ndjson
+data/replay/*.csv
+data/replay/*.parquet
+data/raw/
+data/normalized/
+data/quarantine/
+data/media/
+data/noaa/
+
+# Docker override
+docker-compose.override.yml
+
+# Logs
+*.log
+/tmp/
+
+# Build artifacts
+*.whl
+*.tar.gz

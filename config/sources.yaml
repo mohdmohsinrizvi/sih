@@ -1,0 +1,105 @@
+sources:
+  - source_id: "synthetic_generator"
+    source_name: "Synthetic Data Generator"
+    source_type: "generator"
+    url: null
+    connector_type: "synthetic"
+    authentication_required: false
+    poll_interval_seconds: 0
+    reliability: 1.0
+    geographic_coverage: "India"
+    rate_limits: null
+    enabled: true
+    legal_notes: "Internal synthetic data generation"
+    update_frequency: "on_demand"
+    description: "Generates synthetic weather reports for testing and demo"
+
+  - source_id: "replay_engine"
+    source_name: "Replay Engine"
+    source_type: "replay"
+    url: null
+    connector_type: "replay"
+    authentication_required: false
+    poll_interval_seconds: 0
+    reliability: 1.0
+    geographic_coverage: "India"
+    rate_limits: null
+    enabled: true
+    legal_notes: "Deterministic replay of recorded data"
+    update_frequency: "on_demand"
+    description: "Replays historical or synthetic data at configurable speeds"
+
+  - source_id: "citizen_report"
+    source_name: "Citizen Weather Reports"
+    source_type: "citizen"
+    url: null
+    connector_type: "citizen"
+    authentication_required: false
+    poll_interval_seconds: 0
+    reliability: 0.6
+    geographic_coverage: "India"
+    rate_limits: null
+    enabled: true
+    legal_notes: "Citizen-submitted reports via API"
+    update_frequency: "real_time"
+    description: "Reports submitted directly by citizens via API"
+
+  - source_id: "imd_api"
+    source_name: "India Meteorological Department"
+    source_type: "api"
+    url: "https://api.imd.gov.in"
+    connector_type: "rest_api"
+    authentication_required: true
+    poll_interval_seconds: 300
+    reliability: 0.95
+    geographic_coverage: "India"
+    rate_limits: "60 requests/minute"
+    enabled: false
+    legal_notes: "Requires API key from IMD. Free for research."
+    update_frequency: "hourly"
+    description: "Official IMD weather data API. Requires API key."
+
+  - source_id: "openweather_api"
+    source_name: "OpenWeatherMap"
+    source_type: "api"
+    url: "https://api.openweathermap.org/data/2.5"
+    connector_type: "rest_api"
+    authentication_required: true
+    poll_interval_seconds: 600
+    reliability: 0.9
+    geographic_coverage: "Global"
+    rate_limits: "1000 calls/day free tier"
+    enabled: false
+    legal_notes: "Free tier available. Requires API key."
+    update_frequency: "hourly"
+    description: "OpenWeatherMap API. Requires free API key."
+
+  - source_id: "noaa_dataset"
+    source_name: "NOAA Global Historical Data"
+    source_type: "dataset"
+    url: "https://www.ncdc.noaa.gov/data-access"
+    connector_type: "csv"
+    authentication_required: false
+    poll_interval_seconds: 86400
+    reliability: 0.95
+    geographic_coverage: "Global"
+    rate_limits: null
+    enabled: true
+    legal_notes: "Public domain data"
+    update_frequency: "daily"
+    description: "NOAA historical weather datasets"
+
+  - source_id: "india_wiki_feeds"
+    source_name: "Wikipedia Weather Feeds"
+    source_type: "web"
+    url: "https://en.wikipedia.org/wiki/Weather_in_India"
+    connector_type: "rss"
+    authentication_required: false
+    poll_interval_seconds: 3600
+    reliability: 0.7
+    geographic_coverage: "India"
+    rate_limits: "respectful crawling"
+    enabled: false
+    legal_notes: "Public wiki content"
+    update_frequency: "hourly"
+    description: "Wikipedia weather-related article feeds"

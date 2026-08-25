@@ -1,0 +1,100 @@
+app:
+  name: "National Weather Big Data Analytics Platform"
+  version: "0.1.0"
+  environment: "development"
+  schema_version: "1.0"
+
+ingestion:
+  batch_size: 100
+  max_concurrent_connectors: 10
+  retry_max_attempts: 5
+  retry_base_delay_ms: 100
+  retry_max_delay_ms: 30000
+  request_timeout_seconds: 30
+  raw_payload_max_bytes: 10485760  # 10MB
+
+normalization:
+  default_language: "en"
+  timezone_default: "Asia/Kolkata"
+  text_max_length: 10000
+  hashtag_max_count: 50
+
+quality:
+  future_timestamp_max_hours: 2
+  old_timestamp_max_days: 3650
+  min_text_length: 5
+  gps_bounds:
+    india:
+      lat_min: 6.0
+      lat_max: 37.6
+      lon_min: 68.0
+      lon_max: 97.5
+  quarantine_on_invalid: true
+
+h3:
+  default_resolution: 7
+  resolutions: [5, 6, 7, 8, 9]
+
+dedup:
+  exact_duplicate: true
+  near_duplicate: true
+  semantic_duplicate: true
+  geo_temporal_duplicate: true
+  text_similarity_threshold: 0.85
+  geo_distance_meters: 1000
+  time_window_minutes: 30
+  time_bucket_minutes: 5
+
+event_fusion:
+  candidate_window_minutes: 60
+  min_source_count: 3
+  min_report_count: 5
+  h3_neighbor_resolution: 7
+
+redpanda:
+  bootstrap_servers: "localhost:9092"
+  topics:
+    raw: "weather.raw"
+    normalized: "weather.normalized"
+    validated: "weather.validated"
+    quarantine: "weather.quarantine"
+    ai: "weather.ai"
+    dedup: "weather.dedup"
+    events: "weather.events"
+    alerts: "weather.alerts"
+  consumer_groups:
+    normalizer: "weather-normalizer"
+    validator: "weather-validator"
+    deduplicator: "weather-deduplicator"
+    event_fusion: "weather-event-fusion"
+
+minio:
+  endpoint: "localhost:9000"
+  bucket: "weather-data"
+  paths:
+    raw: "raw/{source_type}/{date}"
+    normalized: "normalized/{date}"
+    replay: "replay/{dataset}"
+    media: "media/{source_type}"
+
+redis:
+  cache_ttl_seconds: 300
+  rate_limit_ttl_seconds: 60
+  health_check_interval: 10
+
+replay:
+  default_speed: 1x
+  supported_speeds: [1, 2, 5, 10, 50, 100]
+  batch_size: 100
+
+synthetic:
+  default_records: 10000
+  max_records: 10000000
+  batch_size: 1000
+  duplicate_ratio: 0.3
+  near_duplicate_ratio: 0.2
+  cluster_ratio: 0.15
+
+monitoring:
+  metrics_port: 9090
+  health_check_port: 8001
